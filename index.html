@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EDI Beta</title>
+  <meta name="description" content="EDI Beta: versi uji Stage 2, hanya untuk David.">
+  <meta name="theme-color" content="#7c2d12">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="edi-app-icon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="EDI Beta">
+  <!-- Styles and script are the team launcher's (repo delos-edi, same site); beta.css only recolours. -->
+  <link rel="stylesheet" href="/delos-edi/launcher.css">
+  <link rel="stylesheet" href="beta.css">
+  <script src="/delos-edi/launcher.js" defer></script>
+</head>
+<body>
+  <!--
+    Launcher for David's private development copy of EDI (Stage 2). The team keeps using the EDI launcher
+    (davesuhartono.github.io/delos-edi); this one is a separate app with an orange icon, so the two never mix.
+    Anyone else who opens the beta address gets "no access" from Google.
+  -->
+  <main class="launcher">
+    <img class="icon" src="edi-app-icon-512.png" alt="" width="112" height="112">
+    <h1>EDI Beta</h1>
+    <p class="beta-note">Versi uji Stage 2 — hanya untuk David. Tim tetap memakai EDI biasa.</p>
+
+    <div class="opening" role="status">
+      <svg class="gears" viewBox="7 8 42 42" aria-hidden="true">
+        <g class="gear gear-big">
+          <circle cx="22" cy="34" r="12.4141" stroke-width="3" stroke-dasharray="2.6 3.9" stroke-dashoffset="3.467"/>
+          <circle cx="22" cy="34" r="7.95" stroke-width="6.9"/>
+        </g>
+        <g class="gear gear-small">
+          <circle cx="38.16" cy="20.44" r="8.2761" stroke-width="3" stroke-dasharray="2.6 3.9" stroke-dashoffset="3.828"/>
+          <circle cx="38.16" cy="20.44" r="5.1" stroke-width="4.2"/>
+        </g>
+      </svg>
+      <p>Membuka EDI Beta…</p>
+    </div>
+
+    <div class="install">
+      <button type="button" class="btn btn-primary" id="install-btn" hidden>Pasang aplikasi</button>
+      <!-- The one place the beta address is written (the development copy's test link); launcher.js reads it. -->
+      <a class="btn" id="open-app"
+         href="https://script.google.com/a/macros/delosaqua.com/s/AKfycbyAsxCSUGimvxbITSUl6Q8Z1yYp8jSxHainj5p7OoQr/dev">Buka EDI Beta</a>
+
+      <section class="help" id="help-android">
+        <h2>Pasang di HP Android</h2>
+        <p>Tekan <strong>Pasang aplikasi</strong>. Kalau tombolnya tidak muncul: menu <strong>⋮</strong> di Chrome →
+          <strong>Instal aplikasi</strong> (atau <strong>Tambahkan ke layar utama</strong> → <strong>Instal</strong>).</p>
+      </section>
+      <section class="help" id="help-ios" hidden>
+        <h2>Pasang di iPhone</h2>
+        <p>Buka halaman ini di <strong>Safari</strong>, tekan <strong>Bagikan</strong> (kotak dengan panah ke atas),
+          lalu <strong>Tambah ke Layar Utama</strong>.</p>
+      </section>
+      <p class="note">Masuk dengan akun Google <strong>@delosaqua.com</strong> milik David.</p>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "EDI Beta (uji Stage 2)",
+  "short_name": "EDI Beta",
+  "description": "Versi uji EDI untuk Stage 2, hanya untuk David.",
+  "lang": "id",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#431407",
+  "theme_color": "#7c2d12",
+  "icons": [
+    { "src": "edi-app-icon.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "edi-app-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "edi-app-icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

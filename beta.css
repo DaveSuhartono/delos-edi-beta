@@ -1,0 +1,19 @@
+/* EDI Beta: the team launcher's layout (launcher.css) on the orange of the beta icon. */
+:root {
+  --bg: #431407;
+  --surface: #5a1f0c;
+  --border: #9a3412;
+  --muted: #fed7aa;
+}
+
+body { background: radial-gradient(120% 80% at 50% 20%, #9a3412, var(--bg)); }
+
+.beta-note {
+  margin: -8px 0 0;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #ea580c;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+}
