@@ -10,10 +10,10 @@
   <link rel="icon" href="edi-app-icon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="apple-mobile-web-app-title" content="EDI Beta">
-  <!-- Styles and script are the team launcher's (repo delos-edi, same site); beta.css only recolours. -->
-  <link rel="stylesheet" href="/delos-edi/launcher.css">
+  <!-- The beta's own copies of the team launcher's styles and script (the next version); beta.css recolours. -->
+  <link rel="stylesheet" href="launcher.css">
   <link rel="stylesheet" href="beta.css">
-  <script src="/delos-edi/launcher.js" defer></script>
+  <script src="launcher.js" defer></script>
 </head>
 <body>
   <!--
@@ -23,22 +23,13 @@
   -->
   <main class="launcher">
     <img class="icon" src="edi-app-icon-512.png" alt="" width="112" height="112">
+    <!-- Opened from the installed app: a bar with an estimated percentage, right under the icon (launcher.js). -->
+    <div class="opening" role="status">
+      <div class="open-bar" aria-hidden="true"><span id="open-fill"></span></div>
+      <p>Membuka EDI Beta… <span id="open-percent">0%</span></p>
+    </div>
     <h1>EDI Beta</h1>
     <p class="beta-note">Versi uji Stage 2 — hanya untuk David. Tim tetap memakai EDI biasa.</p>
-
-    <div class="opening" role="status">
-      <svg class="gears" viewBox="7 8 42 42" aria-hidden="true">
-        <g class="gear gear-big">
-          <circle cx="22" cy="34" r="12.4141" stroke-width="3" stroke-dasharray="2.6 3.9" stroke-dashoffset="3.467"/>
-          <circle cx="22" cy="34" r="7.95" stroke-width="6.9"/>
-        </g>
-        <g class="gear gear-small">
-          <circle cx="38.16" cy="20.44" r="8.2761" stroke-width="3" stroke-dasharray="2.6 3.9" stroke-dashoffset="3.828"/>
-          <circle cx="38.16" cy="20.44" r="5.1" stroke-width="4.2"/>
-        </g>
-      </svg>
-      <p>Membuka EDI Beta…</p>
-    </div>
 
     <div class="install">
       <button type="button" class="btn btn-primary" id="install-btn" hidden>Pasang aplikasi</button>

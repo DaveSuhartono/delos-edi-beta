@@ -4,10 +4,12 @@
   --surface: #5a1f0c;
   --border: #9a3412;
   --muted: #fed7aa;
+  --accent: #fdba74;
 }
 
 body { background: radial-gradient(120% 80% at 50% 20%, #9a3412, var(--bg)); }
 
+.launching .beta-note { display: none; }
 .beta-note {
   margin: -8px 0 0;
   padding: 6px 14px;
