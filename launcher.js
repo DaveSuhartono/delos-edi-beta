@@ -22,9 +22,13 @@
     return;
   }
 
-  if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+  // iPhone, iPad (iPadOS says "Macintosh" but has a touch screen): Safari's steps. Chrome, Firefox, Edge, Opera and
+  // the pages apps open themselves (Google, Facebook, Instagram, Line) cannot add to the Home Screen: copy the link.
+  const ua = navigator.userAgent;
+  if (/iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) {
     document.getElementById('help-ios').hidden = false;
     document.getElementById('help-android').hidden = true;
+    if (/CriOS|FxiOS|EdgiOS|OPiOS|GSA\/|FBAN|FBAV|Instagram|Line\//.test(ua)) offerCopy();
   }
 
   // Chrome / Edge on Android and laptops: our own button instead of the browser's mini bar.
@@ -42,6 +46,16 @@
     installButton.hidden = true;
   });
   window.addEventListener('appinstalled', () => { installButton.hidden = true; });
+
+  function offerCopy() {
+    document.getElementById('ios-other').hidden = false;
+    const button = document.getElementById('copy-link');
+    button.addEventListener('click', () => {
+      navigator.clipboard.writeText(location.href)
+        .then(() => { button.textContent = 'Link disalin. Tempel di Safari.'; })
+        .catch(() => { button.textContent = location.href; }); // copy by hand
+    });
+  }
 
   function showProgress() {
     const fill = document.getElementById('open-fill');

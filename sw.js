@@ -4,7 +4,7 @@
  * launcher, so only this launcher's own caches (edi-beta-…) are ever removed.
  * Change CACHE when these files change, so the phone drops the old copy.
  */
-const CACHE = 'edi-beta-v2';
+const CACHE = 'edi-beta-v3'; // v3: iPhone steps and "Salin link" for other browsers
 const FILES = ['./', 'index.html', 'launcher.css', 'beta.css', 'launcher.js', 'manifest.webmanifest', 'edi-app-icon.png',
   'edi-app-icon-512.png'];
 

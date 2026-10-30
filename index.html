@@ -10,6 +10,9 @@
   <link rel="icon" href="edi-app-icon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="apple-mobile-web-app-title" content="EDI Beta">
+  <!-- iOS before 16.4 reads these instead of the manifest: open from the Home Screen as an app, not a Safari tab. -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <!-- The beta's own copies of the team launcher's styles and script (the next version); beta.css recolours. -->
   <link rel="stylesheet" href="launcher.css">
   <link rel="stylesheet" href="beta.css">
@@ -42,10 +45,23 @@
         <p>Tekan <strong>Pasang aplikasi</strong>. Kalau tombolnya tidak muncul: menu <strong>⋮</strong> di Chrome →
           <strong>Instal aplikasi</strong> (atau <strong>Tambahkan ke layar utama</strong> → <strong>Instal</strong>).</p>
       </section>
+      <!-- iPhone and iPad have no install button: Safari's "Add to Home Screen" does it (launcher.js shows this). -->
       <section class="help" id="help-ios" hidden>
         <h2>Pasang di iPhone</h2>
-        <p>Buka halaman ini di <strong>Safari</strong>, tekan <strong>Bagikan</strong> (kotak dengan panah ke atas),
-          lalu <strong>Tambah ke Layar Utama</strong>.</p>
+        <!-- Another browser or an app's own page (launcher.js): only Safari can add EDI Beta to the Home Screen. -->
+        <div class="other-browser" id="ios-other" hidden>
+          <p>Hanya bisa lewat <strong>Safari</strong>. Salin link, buka Safari, lalu tempel di kolom alamat.</p>
+          <button type="button" class="btn" id="copy-link">Salin link</button>
+        </div>
+        <ol class="steps">
+          <li>Tekan <strong>Bagikan</strong>
+            <svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v12M8 7l4-4 4 4M7 10H5v11h14V10h-2"/></svg>
+            di bawah layar Safari.</li>
+          <li>Pilih <strong>Tambah ke Layar Utama</strong>, lalu <strong>Tambah</strong>.</li>
+          <li>Buka EDI Beta dari ikonnya di layar utama.</li>
+        </ol>
+        <p>Dibuka dari WhatsApp? Tekan dulu ikon <strong>Safari</strong> (kompas) di pojok bawah.</p>
       </section>
       <p class="note">Masuk dengan akun Google <strong>@delosaqua.com</strong> milik David.</p>
     </div>
