@@ -4,7 +4,7 @@
  * launcher, so only this launcher's own caches (edi-beta-…) are ever removed.
  * Change CACHE when these files change, so the phone drops the old copy.
  */
-const CACHE = 'edi-beta-v4'; // v4: EDI inside the launcher's own frame on Android (no browser bar)
+const CACHE = 'edi-beta-v5'; // v5: "?uji" tries EDI's frame by hand (v4: EDI in the launcher's own frame)
 const FILES = ['./', 'index.html', 'launcher.css', 'beta.css', 'launcher.js', 'manifest.webmanifest', 'edi-app-icon.png',
   'edi-app-icon-512.png'];
 

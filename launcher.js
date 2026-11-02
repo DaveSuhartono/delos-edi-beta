@@ -26,11 +26,39 @@
   // The service worker is what makes the launcher installable (and lets it open without a signal).
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 
+  // The frame tried by hand (David's check, 02/11/2026): this page in a browser tab with "?uji" shows EDI's frame at
+  // once — so whatever Google puts in it shows too — and says whether EDI answered; it forgets an earlier failure.
+  if (new URLSearchParams(location.search).has('uji')) {
+    forgetFailure();
+    const note = document.createElement('p');
+    note.className = 'trial-note';
+    note.textContent = 'Menunggu jawaban EDI dari dalam bingkai…';
+    document.body.classList.add('framed');
+    document.body.append(note);
+    frameEdi(ready => {
+      note.textContent = ready ? 'EDI siap di dalam bingkai ✓' : 'EDI tidak menjawab dari dalam bingkai ✗';
+    });
+    return;
+  }
+
   if (installed) {
     document.body.classList.add('launching');
     showProgress();
-    if (frameMayWork()) openInFrame();
-    else location.replace(appUrl);
+    if (!frameMayWork()) {
+      location.replace(appUrl);
+      return;
+    }
+    frameEdi(ready => {
+      if (ready) {
+        document.body.classList.add('framed');
+        return;
+      }
+      try {
+        localStorage.setItem(FRAME_FAILED_KEY, String(Date.now()));
+      } catch { // no storage: the frame is tried again next time
+      }
+      location.replace(appUrl);
+    });
     return;
   }
 
@@ -78,30 +106,38 @@
     }
   }
 
-  /** EDI in a frame over the whole screen, shown once it says it is ready; no word in time: the usual way. */
-  function openInFrame() {
+  function forgetFailure() {
+    try {
+      localStorage.removeItem(FRAME_FAILED_KEY);
+    } catch { // no storage: nothing was kept
+    }
+  }
+
+  /**
+   * EDI in a frame over the whole screen (shown by the "framed" class); `done(true)` once EDI says it is ready,
+   * `done(false)` when no word comes in time.
+   */
+  function frameEdi(done) {
     const frame = document.createElement('iframe');
     frame.className = 'app-frame';
     frame.title = 'EDI';
     frame.src = appUrl;
     let wait;
-    const giveUp = () => {
-      try {
-        localStorage.setItem(FRAME_FAILED_KEY, String(Date.now()));
-      } catch { // no storage: the frame is tried again next time
-      }
-      location.replace(appUrl);
-    };
-    const deadline = setTimeout(giveUp, FRAME_MAX_MS);
-    frame.addEventListener('load', () => {
-      clearTimeout(wait);
-      wait = setTimeout(giveUp, FRAME_WAIT_MS);
-    });
-    window.addEventListener('message', event => {
-      if (!EDI_ORIGIN.test(event.origin) || event.data?.edi !== 'ready') return;
+    let settled = false;
+    const settle = ready => {
+      if (settled) return;
+      settled = true;
       clearTimeout(deadline);
       clearTimeout(wait);
-      document.body.classList.add('framed');
+      done(ready);
+    };
+    const deadline = setTimeout(() => settle(false), FRAME_MAX_MS);
+    frame.addEventListener('load', () => {
+      clearTimeout(wait);
+      wait = setTimeout(() => settle(false), FRAME_WAIT_MS);
+    });
+    window.addEventListener('message', event => {
+      if (EDI_ORIGIN.test(event.origin) && event.data?.edi === 'ready') settle(true);
     });
     document.body.append(frame);
   }
