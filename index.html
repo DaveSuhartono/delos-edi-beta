@@ -2,69 +2,135 @@
 <html lang="id">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>EDI Beta</title>
-  <meta name="description" content="EDI Beta: versi uji Stage 2, hanya untuk David.">
-  <meta name="theme-color" content="#7c2d12">
+  <meta name="description" content="EDI Beta: versi dev EDI untuk uji coba, hanya untuk David.">
+  <meta name="theme-color" content="#ffffff">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="edi-app-icon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="apple-mobile-web-app-title" content="EDI Beta">
   <!-- iOS before 16.4 reads these instead of the manifest: open from the Home Screen as an app, not a Safari tab. -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- The beta's own copies of the team launcher's styles and script (the next version); beta.css recolours. -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- The font loads without blocking the first paint (the system font until IBM Plex arrives, or offline). -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap"
+        media="print" onload="this.media='all'">
+  <!-- The team launcher's own styles and script (pwa/), and the small DEV badge (beta.css). -->
   <link rel="stylesheet" href="launcher.css">
   <link rel="stylesheet" href="beta.css">
-  <script src="launcher.js" defer></script>
+  <script src="launcher.js"></script>
 </head>
 <body>
   <!--
-    Launcher for David's private development copy of EDI (Stage 2). The team keeps using the EDI launcher
-    (davesuhartono.github.io/delos-edi); this one is a separate app with an orange icon, so the two never mix.
-    Anyone else who opens the beta address gets "no access" from Google.
+    Launcher for David's private development copy of EDI: the team launcher (davesuhartono.github.io/delos-edi)
+    with the dev address, an orange icon and a DEV badge, so the two never mix. Anyone else who opens the dev
+    address gets "no access" from Google. launcher.js shows the screen that fits: install steps in a
+    browser tab; in the installed app "Masuk dengan Google" the first time, then straight to EDI. Its texts are in
+    launcher.js (ID / EN): data-t names one.
   -->
-  <main class="launcher">
-    <img class="icon" src="edi-app-icon-512.png" alt="" width="112" height="112">
-    <!-- Opened from the installed app: a bar with an estimated percentage, right under the icon (launcher.js). -->
-    <div class="opening" role="status">
-      <div class="open-bar" aria-hidden="true"><span id="open-fill"></span></div>
-      <p>Membuka EDI Beta… <span id="open-percent">0%</span></p>
+  <header class="prefs">
+    <div class="seg" role="group">
+      <button type="button" data-lang="id">ID</button><button type="button" data-lang="en">EN</button>
     </div>
-    <h1>EDI Beta</h1>
-    <p class="beta-note">Versi uji Stage 2 — hanya untuk David. Tim tetap memakai EDI biasa.</p>
+    <button type="button" class="mode" id="mode">
+      <svg class="i moon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+      <svg class="i sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/>
+        <path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6
+          l1.8-1.8"/></svg>
+    </button>
+  </header>
 
-    <div class="install">
-      <button type="button" class="btn btn-primary" id="install-btn" hidden>Pasang aplikasi</button>
-      <!-- The one place the beta address is written (the development copy's test link); launcher.js reads it. -->
-      <a class="btn" id="open-app"
-         href="https://script.google.com/a/macros/delosaqua.com/s/AKfycbyAsxCSUGimvxbITSUl6Q8Z1yYp8jSxHainj5p7OoQr/dev">Buka EDI Beta</a>
+  <main class="launcher">
+    <svg class="logo" viewBox="0 0 162 64" role="img" aria-label="EDI">
+      <svg width="53.8" height="64" viewBox="78 92 1529 1820">
+        <defs><path id="wave" d="M78 469C150 300 380 92 620 92C760 92 960 207 1065 207C1125 207 1185 150 1207
+          98L1607 271C1535 440 1305 648 1065 648C925 648 725 533 620 533C560 533 500 590 478 642Z"/></defs>
+        <use href="#wave" class="w1"/><use href="#wave" class="w2" y="632"/><use href="#wave" class="w3" y="1264"/>
+      </svg>
+      <path class="ink" transform="translate(68.8 10) scale(.8148)" fill-rule="evenodd"
+            d="M0 0H38V13H13V20.5H33V33.5H13V41H38V54H0Z M47 0H65A27 27 0 0 1 65 54H47Z M60 13V41H65A14 14 0 0 0 65
+              13Z M101 0H114V54H101Z"/>
+    </svg>
+    <p class="words">Engineering Data Input</p>
+    <h1 data-t="headline"></h1>
 
-      <section class="help" id="help-android">
-        <h2>Pasang di HP Android</h2>
-        <p>Tekan <strong>Pasang aplikasi</strong>. Kalau tombolnya tidak muncul: menu <strong>⋮</strong> di Chrome →
-          <strong>Instal aplikasi</strong> (atau <strong>Tambahkan ke layar utama</strong> → <strong>Instal</strong>).</p>
-      </section>
-      <!-- iPhone and iPad have no install button: Safari's "Add to Home Screen" does it (launcher.js shows this). -->
-      <section class="help" id="help-ios" hidden>
-        <h2>Pasang di iPhone</h2>
-        <!-- Another browser or an app's own page (launcher.js): only Safari can add EDI Beta to the Home Screen. -->
-        <div class="other-browser" id="ios-other" hidden>
-          <p>Hanya bisa lewat <strong>Safari</strong>. Salin link, buka Safari, lalu tempel di kolom alamat.</p>
-          <button type="button" class="btn" id="copy-link">Salin link</button>
-        </div>
-        <ol class="steps">
-          <li>Tekan <strong>Bagikan</strong>
-            <svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 3v12M8 7l4-4 4 4M7 10H5v11h14V10h-2"/></svg>
-            di bawah layar Safari.</li>
-          <li>Pilih <strong>Tambah ke Layar Utama</strong>, lalu <strong>Tambah</strong>.</li>
-          <li>Buka EDI Beta dari ikonnya di layar utama.</li>
-        </ol>
-        <p>Dibuka dari WhatsApp? Tekan dulu ikon <strong>Safari</strong> (kompas) di pojok bawah.</p>
-      </section>
-      <p class="note">Masuk dengan akun Google <strong>@delosaqua.com</strong> milik David.</p>
+    <div class="act">
+      <!-- Android and laptops (Chrome, Edge): shown when the browser offers to install. -->
+      <button type="button" class="primary" id="install-btn" hidden>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+        <span data-t="install"></span>
+      </button>
+      <p class="hint" data-show="android" data-t="no_button"></p>
+
+      <!-- iPhone and iPad have no install button: Safari's "Add to Home Screen" does it. -->
+      <ol class="steps" data-show="ios">
+        <li><span class="n">1</span><span id="step-share" data-t="step_share"></span>
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3v12M8 7l4-4 4 4M7 10H5v11h14V10h-2"/></svg></li>
+        <li><span class="n">2</span><span data-t="step_add"></span>
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/>
+            <path d="M12 8v8M8 12h8"/></svg></li>
+        <li><span class="n">3</span><span data-t="step_open"></span>
+          <img class="tile" src="edi-app-icon.png" alt="" width="28" height="28"></li>
+      </ol>
+      <p class="hint" data-show="ios" data-t="whatsapp"></p>
+
+      <!-- Another iPhone browser, or an app's own page: only Safari can add EDI to the Home Screen. -->
+      <div class="card" data-show="ios-other">
+        <b data-t="safari_title"></b>
+        <p data-t="safari_text"></p>
+        <button type="button" class="primary" id="copy-link">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/>
+            <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+          <span data-t="copy"></span>
+        </button>
+      </div>
+
+      <!-- The installed app's first opening: Google asks for the account on EDI's own page. -->
+      <button type="button" class="google" id="sign-in" data-show="sign-in">
+        <svg class="g" viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#ea4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.6
+            13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/>
+          <path fill="#4285f4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.4-4.6 7l7.4 5.8c4.3-4
+            6.9-9.9 6.9-17.3z"/>
+          <path fill="#fbbc05" d="M10.5 28.7c-.5-1.4-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C1 16.5 0 20.1 0 24s1 7.5 2.6
+            10.8l7.9-6.1z"/>
+          <path fill="#34a853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.8c-2.1 1.4-4.8 2.3-8.5 2.3-6.3
+            0-11.6-4.1-13.5-9.8l-7.9 6.1C6.6 42.6 14.6 48 24 48z"/>
+        </svg>
+        <span data-t="google"></span>
+      </button>
+      <p class="hint" data-show="sign-in" data-t="account"></p>
+
+      <div class="loading" role="status" data-show="opening">
+        <div class="bar" aria-hidden="true"><span id="open-fill"></span></div>
+        <p><span data-t="opening"></span> <b id="open-percent">0%</b></p>
+      </div>
+
+      <!-- The one place EDI's address is written; launcher.js reads it from here. -->
+      <a class="link" id="open-app" data-show="android ios ios-other" data-t="in_browser"
+         href="https://script.google.com/a/macros/delosaqua.com/s/AKfycbyAsxCSUGimvxbITSUl6Q8Z1yYp8jSxHainj5p7OoQr/dev"></a>
     </div>
   </main>
+
+  <div class="shore">
+    <svg class="sea" viewBox="0 0 470 260" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 70C80 20 160 20 235 60S390 110 470 50V260H0Z"/>
+      <path d="M0 120C90 80 170 85 245 115S400 150 470 105V260H0Z"/>
+      <path d="M0 170C100 140 180 145 255 170S410 200 470 160V260H0Z"/>
+    </svg>
+    <!-- Not on the iPhone steps: the bubble pointing at Safari's Share button sits there. -->
+    <footer data-t="foot" data-show="android ios-other sign-in opening"></footer>
+  </div>
+  <!-- iPhone Safari before version 26: points at Share in the middle of the bottom bar (launcher.js). -->
+  <p class="pointer" id="pointer" data-show="ios" aria-hidden="true">
+    <svg class="i" viewBox="0 0 24 24"><path d="M12 3v12M8 7l4-4 4 4M7 10H5v11h14V10h-2"/></svg>
+    <span data-t="share"></span>
+  </p>
+  <p class="dev-badge">DEV · data uji</p>
 </body>
 </html>

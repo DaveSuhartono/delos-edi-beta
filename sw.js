@@ -4,7 +4,7 @@
  * launcher, so only this launcher's own caches (edi-beta-…) are ever removed.
  * Change CACHE when these files change, so the phone drops the old copy.
  */
-const CACHE = 'edi-beta-v6'; // v6: EDI opens the usual way again (v4–v5 tried it in a frame)
+const CACHE = 'edi-beta-v7'; // v7: the team launcher's option 3A design with a DEV badge
 const FILES = ['./', 'index.html', 'launcher.css', 'beta.css', 'launcher.js', 'manifest.webmanifest', 'edi-app-icon.png',
   'edi-app-icon-512.png'];
 

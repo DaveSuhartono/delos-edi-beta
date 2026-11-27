@@ -1,100 +1,264 @@
 /*
- * EDI launcher: one centred column on the icon's navy (beta.css recolours it orange).
- * EDI Beta's own copy of the team launcher's styles (pwa/launcher.css): launcher changes for a coming stage are
- * tried here first, then copied to pwa/ when that stage is released.
+ * EDI launcher (option 3A): the EDI logo and a general headline, the step that fits the device under it, Delos waves
+ * at the bottom. Light theme on :root, dark on [data-theme="dark"] (launcher.js).
  */
 :root {
-  --bg: #0b1b33;
-  --surface: #13284a;
-  --border: #2c4670;
-  --text: #f4f8fc;
-  --muted: #a9bccf;
-  --primary: #1f5fbf;
-  --primary-hover: #184c99;
-  --accent: #6cbab4;
+  --bg: #ffffff;
+  --text: #21324e;
+  --muted: #5a645f;
+  --blue: #3376ba;
+  --border: #dadce0;
+  --seg: #f2f3ef;
+  --seg-on: #0d5b60;
+  --seg-on-text: #ffffff;
+  --primary: #0d5b60;
+  --primary-text: #ffffff;
+  --google: #ffffff;
+  --google-text: #1f1f1f;
+  --card: #f2f6fa;
+  --step: #3376ba;
+  --track: #e3eaf3;
+  --bar-end: #3376ba;
+  --logo-top: #1b9bd0;
+  --logo-mid: #3376ba;
+  --logo-low: #21324e;
+  --logo-ink: #21324e;
+  --sea-1: #1b9bd0;
+  --sea-2: #3376ba;
+  --sea-3: #21324e;
+  --foot: #dbe7f7;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: #101413;
+  --text: #e5eae7;
+  --muted: #9ba6a1;
+  --blue: #6cbab4;
+  --border: #48524f;
+  --seg: #1f2524;
+  --seg-on: #6cbab4;
+  --seg-on-text: #101413;
+  --primary: #6cbab4;
+  --primary-text: #101413;
+  --google: #1f2524;
+  --google-text: #e5eae7;
+  --card: #1f2524;
+  --step: #5a93dd;
+  --track: #2d3533;
+  --bar-end: #5a93dd;
+  --logo-mid: #5a93dd;
+  --logo-low: #a9c7ea;
+  --logo-ink: #f4f8fc;
+  --sea-2: #2f6db0;
+  --sea-3: #1a2a44;
+  --foot: #c9d6e8;
   color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 body {
   margin: 0;
   min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 32px 16px;
-  background: radial-gradient(120% 80% at 50% 20%, #1e3a66, var(--bg));
-  color: var(--text);
-  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-
-.launcher {
-  width: min(420px, 100%);
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  text-align: center;
-}
-
-.icon { border-radius: 25px; box-shadow: 0 12px 32px rgba(0, 0, 0, .35); }
-
-h1 { margin: 0; font-size: 22px; line-height: 1.3; font-weight: 700; }
-
-/* Opened from the installed app: only the icon, and under it a bar with an estimated percentage, while it moves
-   on to EDI (launcher.js). */
-.opening { display: none; width: min(240px, 100%); flex-direction: column; gap: 10px; color: var(--muted); }
-.launching .opening { display: flex; }
-.launching h1, .launching .install { display: none; }
-.opening p { margin: 0; font-size: 14px; font-variant-numeric: tabular-nums; }
-.open-bar { height: 6px; overflow: hidden; border-radius: 999px; background: var(--border); }
-.open-bar span { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--accent); }
-
-.install { width: 100%; display: flex; flex-direction: column; gap: 12px; }
-
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 52px;
-  padding: 0 20px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--surface);
+  background: var(--bg);
   color: var(--text);
-  font: inherit;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
+  font: 16px/1.5 "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
-.btn-primary { border-color: var(--primary); background: var(--primary); color: #fff; }
-.btn-primary:hover { background: var(--primary-hover); }
-.btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
-.help {
-  margin-top: 8px;
-  padding: 14px 16px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  text-align: left;
-}
-.help h2 { margin: 0 0 4px; font-size: 15px; }
-.help p, .note { margin: 0; font-size: 14px; color: var(--muted); }
-.help strong, .note strong { color: var(--text); }
-/* iPhone: the numbered Safari steps, with Safari's share symbol; another browser first gets "Salin link". */
-.steps { margin: 6px 0 8px; padding-left: 20px; font-size: 14px; color: var(--muted); }
-.steps li + li { margin-top: 4px; }
-.share-icon {
-  width: 18px;
-  height: 18px;
-  vertical-align: -3px;
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+.i {
+  width: 20px;
+  height: 20px;
+  flex: none;
   fill: none;
-  stroke: var(--accent);
+  stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.other-browser { display: grid; gap: 10px; margin: 6px 0 10px; }
-.other-browser p { color: var(--text); }
 
-[hidden] { display: none !important; }
+/* ---------- Language and light / dark mode (top right) ---------- */
+.prefs {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  padding: calc(14px + env(safe-area-inset-top)) 20px 0;
+}
+.opening .prefs { visibility: hidden; } /* EDI is on its way: a choice now would only reach it next time */
+.seg { display: flex; overflow: hidden; border: 1px solid var(--border); border-radius: 999px; background: var(--seg); }
+.seg button {
+  padding: 6px 13px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .03em;
+}
+.seg button[aria-pressed="true"] { background: var(--seg-on); color: var(--seg-on-text); }
+.mode {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--seg);
+  color: var(--text);
+}
+.mode .i { width: 18px; height: 18px; }
+[data-theme="light"] .sun, [data-theme="dark"] .moon { display: none; }
+
+/* ---------- Logo and headline ---------- */
+.launcher { flex: 1; width: min(420px, 100%); margin: 0 auto; padding: 36px 32px 28px; }
+.logo { display: block; width: 142px; height: 56px; }
+.logo .w1 { fill: var(--logo-top); }
+.logo .w2 { fill: var(--logo-mid); }
+.logo .w3 { fill: var(--logo-low); }
+.logo .ink { fill: var(--logo-ink); }
+.words {
+  margin: 14px 0 0;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+h1 { margin: 24px 0 0; font-size: 34px; line-height: 1.15; font-weight: 700; letter-spacing: -.01em; }
+
+/* ---------- The step for this device ---------- */
+.act { display: grid; gap: 14px; margin-top: clamp(32px, 7vh, 72px); }
+
+.primary, .google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 54px;
+  padding: 0 20px;
+  border-radius: 14px;
+  font-weight: 600;
+}
+.primary { border: 0; background: var(--primary); color: var(--primary-text); }
+.google {
+  gap: 12px;
+  border: 1px solid var(--border);
+  background: var(--google);
+  color: var(--google-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .08);
+}
+.google .g { width: 22px; height: 22px; flex: none; }
+
+.hint { margin: 0; color: var(--muted); font-size: 13.5px; text-align: center; }
+.hint b { color: var(--text); white-space: nowrap; }
+.link {
+  color: var(--blue);
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* iPhone, Safari: Share → Add to Home Screen → open from the icon. */
+.steps { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.steps li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--card);
+  font-size: 15px;
+}
+.steps li > span:nth-child(2) { flex: 1; }
+.steps .n {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border-radius: 50%;
+  background: var(--step);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+}
+.steps .i { width: 22px; height: 22px; color: var(--step); }
+.steps .tile { width: 28px; height: 28px; border-radius: 7px; }
+
+/* Safari's Share button sits in the middle of the bottom bar (before Safari 26): a bubble points at it. */
+.pointer {
+  position: fixed;
+  bottom: calc(10px + env(safe-area-inset-bottom));
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #21324e;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .2);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.pointer .i { width: 16px; height: 16px; }
+.pointer::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  margin-left: -7px;
+  border: 7px solid transparent;
+  border-bottom: 0;
+  border-top-color: #ffffff;
+}
+
+/* Another iPhone browser: only Safari can add to the Home Screen. */
+.card { display: grid; gap: 10px; padding: 18px; border-radius: 16px; background: var(--card); }
+.card b { font-size: 16px; }
+.card p { margin: 0; color: var(--muted); font-size: 14px; }
+
+/* Opening EDI: a bar with an estimated percentage (launcher.js). */
+.loading { display: grid; gap: 12px; padding: 6px 0; }
+.bar { height: 8px; overflow: hidden; border-radius: 999px; background: var(--track); }
+.bar span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1b9bd0, var(--bar-end));
+}
+.loading p { margin: 0; color: var(--muted); font-size: 15px; text-align: center; font-variant-numeric: tabular-nums; }
+.loading b { color: var(--text); }
+
+/* ---------- Waves ---------- */
+.shore { position: relative; flex: none; height: clamp(150px, 27vh, 260px); }
+.sea { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sea path:nth-child(1) { fill: var(--sea-1); }
+.sea path:nth-child(2) { fill: var(--sea-2); }
+.sea path:nth-child(3) { fill: var(--sea-3); }
+.shore footer {
+  position: absolute;
+  right: 0;
+  bottom: calc(22px + env(safe-area-inset-bottom));
+  left: 0;
+  color: var(--foot);
+  font-size: 12px;
+  text-align: center;
+}

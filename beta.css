@@ -1,21 +1,18 @@
-/* EDI Beta: the team launcher's layout (launcher.css) on the orange of the beta icon. */
-:root {
-  --bg: #431407;
-  --surface: #5a1f0c;
-  --border: #9a3412;
-  --muted: #fed7aa;
-  --accent: #fdba74;
-}
-
-body { background: radial-gradient(120% 80% at 50% 20%, #9a3412, var(--bg)); }
-
-.launching .beta-note { display: none; }
-.beta-note {
-  margin: -8px 0 0;
-  padding: 6px 14px;
+/*
+ * EDI Beta: the small DEV badge of the development copy (tools/dev-badge.html), so it is never mistaken for EDI.
+ * Top left, level with the language and mode buttons: at the bottom it would cover the footer.
+ */
+.dev-badge {
+  position: fixed;
+  top: calc(19px + env(safe-area-inset-top));
+  left: 20px;
+  z-index: 3;
+  margin: 0;
+  padding: 4px 10px;
   border-radius: 999px;
-  background: #ea580c;
+  background: #c2410c;
   color: #ffffff;
-  font-size: 14px;
-  font-weight: 600;
+  font: 700 12px/1.4 system-ui, sans-serif;
+  letter-spacing: .04em;
+  pointer-events: none;
 }
